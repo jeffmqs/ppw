@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+    .container {
+      text-align: center;
+      padding: 20px;
+      border-radius: 5px;
+      background-color: white;
+      box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+    }
+    button {
+      margin: 5px;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    #resultado {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Sorteio</h1>
+    
+        <button onclick="cadastrarProdutos()">Cadastrar Produtos</button>
+        <button onclick="cadastrarPessoas()">Cadastrar Pessoas</button>
+        <button onclick="realizarSorteio()">Realizar Sorteio</button>
+    
+        <div id="resultado"></div>
+      </div>
+    
+      <script>
+        const produtos = [];
+        const pessoas = [];
+        const numerosPessoas = [];
+        let numeroSorteado;
+    
+        function cadastrarProdutos() {
+          if (produtos.length < 3) {
+            const produto = prompt(`Digite o nome do produto ${produtos.length + 1}:`);
+            produtos.push(produto);
+          } else {
+            alert("Já foram cadastrados três produtos.");
+          }
+        }
+    
+        function cadastrarPessoas() {
+          if (pessoas.length < 3) {
+            const pessoa = prompt(`Digite o nome da pessoa ${pessoas.length + 1}:`);
+            pessoas.push(pessoa);
+            numerosPessoas.push(pessoas.length);
+            alert(`${pessoa} foi registrado com o número ${pessoas.length}.`);
+          } else {
+            alert("Já foram cadastradas três pessoas.");
+          }
+        }
+    
+        function realizarSorteio() {
+          if (produtos.length !== 3 || pessoas.length !== 3) {
+            alert("Cadastre três produtos e três pessoas antes de realizar o sorteio.");
+            return;
+          }
+    
+          numeroSorteado = Math.floor(Math.random() * 3); // Gera número aleatório de 0 a 2
+    
+          const pessoaVencedora = pessoas[numeroSorteado];
+          const produtoSorteado = produtos[numeroSorteado];
+    
+          const resultado = `${pessoaVencedora} (Número: ${numerosPessoas[numeroSorteado]}) é a vencedora e ganhou o produto "${produtoSorteado}".`;
+    
+          document.getElementById("resultado").textContent = resultado;
+        }
+      </script>   
+</body>
+</html>
