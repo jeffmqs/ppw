@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+    form {
+        margin: 20px;
+    }
+</style>
+<title>Sistema de Notas</title>
+</head>
+<body>
+    <h1>Sistema de Notas</h1>
+    <form id="gradeForm">
+        <label for="name">Nome do Aluno:</label>
+        <input type="text" id="name" required><br><br>
+        <label for="grade1">Nota 1:</label>
+        <input type="number" class="gradeInput" required><br><br>
+        <label for="grade2">Nota 2:</label>
+        <input type="number" class="gradeInput" required><br><br>
+        <label for="grade3">Nota 3:</label>
+        <input type="number" class="gradeInput" required><br><br>
+        <label for="grade4">Nota 4:</label>
+        <input type="number" class="gradeInput" required><br><br>
+        <label for="grade5">Nota 5:</label>
+        <input type="number" class="gradeInput" required><br><br>
+        <button type="submit">Calcular</button>
+    </form>
+    <p id="result"></p>
+
+    <script>
+        document.getElementById("gradeForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById("name").value;
+            const gradeInputs = document.querySelectorAll(".gradeInput");
+            
+            let sum = 0;
+            for (const input of gradeInputs) {
+                sum += parseFloat(input.value);
+            }
+            
+            const average = sum / gradeInputs.length;
+            const roundedAverage = Math.round(average);
+
+            let result = `${name}, sua média é ${average.toFixed(2)}. `;
+
+            if (average >= 7) {
+                result += "Você passou!";
+            } else {
+                result += "Você não passou.";
+            }
+
+            if (average >= 4 && average < 7) {
+                result += " Você está na final.";
+            }
+
+            if (roundedAverage > average) {
+                result += ` Sua nota final arredondada é ${roundedAverage}.`;
+            }
+
+            document.getElementById("result").textContent = result;
+        });
+    </script>
+</body>
+</html>
