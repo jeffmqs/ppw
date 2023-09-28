@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciador de Contas Bancárias</title>
+</head>
+<body>
+    <h1>Gerenciador de Contas Bancárias</h1>
+
+    <h2>Inserir Nova Conta</h2>
+    <label for="agencia">Agência:</label>
+    <input type="text" id="agencia"><br>
+
+    <label for="numero">Número:</label>
+    <input type="text" id="numero"><br>
+
+    <label for="tipo">Tipo de Conta:</label>
+    <select id="tipo">
+        <option value="Conta Corrente">Conta Corrente</option>
+        <option value="Conta Poupança">Conta Poupança</option>
+        <option value="Conta Universitária">Conta Universitária</option>
+    </select><br>
+
+    <label for="saldo">Saldo:</label>
+    <input type="text" id="saldo"><br>
+
+    <button onclick="inserirConta()">Inserir</button>
+
+    <h2>Lista de Contas</h2>
+    <ul id="listaContas"></ul>
+
+    <button onclick="visualizarContas()">Visualizar</button>
+    <button onclick="deletarConta()">Deletar</button>
+
+    <script>
+        class ContaBancaria {
+            constructor(agencia, numero, tipo, saldo) {
+                this.agencia = agencia;
+                this.numero = numero;
+                this.tipo = tipo;
+                this.saldo = saldo;
+            }
+
+            sacar(valor) {
+                if (valor <= this.saldo) {
+                    this.saldo -= valor;
+                    return true;
+                }
+                return false;
+            }
+
+            depositar(valor) {
+                this.saldo += valor;
+            }
+        }
+
+        class ContaCorrente extends ContaBancaria {
+            constructor(agencia, numero, saldo, cartaoCredito) {
+                super(agencia, numero, 'Conta Corrente', saldo);
+                this.cartaoCredito = cartaoCredito;
+            }
+        }
+
+        class ContaPoupanca extends ContaBancaria {
+            constructor(agencia, numero, saldo) {
+                super(agencia, numero, 'Conta Poupança', saldo);
+            }
+        }
+
+        class ContaUniversitaria extends ContaBancaria {
+            constructor(agencia, numero, saldo) {
+                super(agencia, numero, 'Conta Universitária', saldo);
+            }
+
+            sacar(valor) {
+                if (valor <= 500 && super.sacar(valor)) {
+                    return true;
+                }
+                return false;
+            }
+        }
+
+        const listaContas = [];
+
+        function inserirConta() {
+            const agencia = document.getElementById('agencia').value;
+            const numero = document.getElementById('numero').value;
+            const tipo = document.getElementById('tipo').value;
+            const saldo = parseFloat(document.getElementById('saldo').value);
+
+            let novaConta;
+
+            if (tipo === 'Conta Corrente') {
+                novaConta = new ContaCorrente(agencia, numero, saldo, 1000); // 1000 é o limite de cartão de crédito inicial
+            } else if (tipo === 'Conta Poupança') {
+                novaConta = new ContaPoupanca(agencia, numero, saldo);
+            } else if (tipo === 'Conta Universitária') {
+                novaConta = new ContaUniversitária(agencia, numero, saldo);
+            }
+
+            listaContas.push(novaConta);
+        }
+
+        function visualizarContas() {
+            const listaContasElement = document.getElementById('listaContas');
+            listaContasElement.innerHTML = '';
+
+            for (const conta of listaContas) {
+                const li = document.createElement('li');
+                li.textContent = `${conta.tipo} - Agência: ${conta.agencia}, Número: ${conta.numero}, Saldo: R$ ${conta.saldo.toFixed(2)}`;
+                listaContasElement.appendChild(li);
+            }
+        }
+
+        function deletarConta() {
+            const numeroConta = prompt('Digite o número da conta que deseja deletar:');
+            const index = listaContas.findIndex(conta => conta.numero === numeroConta);
+
+            if (index !== -1) {
+                listaContas.splice(index, 1);
+                alert('Conta deletada com sucesso!');
+            } else {
+                alert('Conta não encontrada.');
+            }
+        }
+    </script>
+</body>
+</html>
