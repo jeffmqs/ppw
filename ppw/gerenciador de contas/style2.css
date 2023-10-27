@@ -1,0 +1,59 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300&family=Jost:ital,wght@0,100;0,200;0,300;0,500;1,400&family=Open+Sans:wght@300;400;500&family=Poppins:wght@400;500&display=swap');
+
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: #201b2c;
+    display: flex;
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center; /* Centraliza verticalmente */
+    height: 100vh;
+}
+
+h1, h2 {
+    color: #00ff88;
+    text-align: center;
+}
+
+.main-left, .main-right {
+    width: 22%; /* Tamanho das divs permanece o mesmo */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background: #2f2841;
+    border-radius: 20px;
+    box-shadow: 0px 10px 40px #00000056;
+    color: white;
+    text-align: center;
+    margin: 40px; /* Espaçamento entre as divs */
+}
+
+
+input, select {
+    background-color: #514869;
+    width: 90%;
+    padding: 10px;
+    margin-top: 5px;
+    border: none;
+    border-radius: 5px;
+    color:white ;
+    box-shadow: 0px 10px 40px #00000056;
+    outline: none;
+    box-sizing: border-box;
+}
+
+
+button {
+    background-color: #00ff88;
+    color: #2b134b;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+
+
+

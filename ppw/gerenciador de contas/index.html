@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>jm bank</title>
+</head>
+<body>
+    <div class="main-login">
+        <div class="left-login">   
+            <h2>Faça o seu login<br>E acesse a sua conta agora!</h2>
+            <img src="imagem.svg" class="left-login-image" alt="animação">
+        </div>
+        <div class="right-login">
+            <div class="card-login">
+                <h1>jm bank</h1>
+                <div class="textfield">
+                    <label for="usuario">Usuário</label>
+                    <input type="text" name="usuario" placeholder="Usuário">
+                </div>
+                <div class="textfield">
+                    <label for="senha">Senha</label>
+                    <input type="password" name="senha" placeholder="Senha">
+                </div>
+                <button class="btn-login" onclick="logar()">Login</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function logar() {
+            var login = document.querySelector('input[name="usuario"]').value;
+            var senha = document.querySelector('input[name="senha"]').value;
+
+            if (login === "admin" && senha === "admin") {
+                alert('Sucesso');
+                window.open("home.html", "_blank");
+            } else {
+                alert('Usuário ou senha incorretos');
+            }
+        }
+
+        var inputs = document.querySelectorAll('input');
+        inputs.forEach(function(input) {
+        input.addEventListener('keydown', function(event) {
+            if (event.key === "Enter") {
+                logar(); 
+            }
+        });
+    });
+    </script>
+</body>
+</html>
